@@ -1,20 +1,3 @@
 {
-  "tasks": [
-    {
-      "task": "meow",
-      "id": 1
-    },
-    {
-      "task": "meow",
-      "id": 2
-    },
-    {
-      "task": "meow",
-      "id": 3
-    },
-    {
-      "task": "woof",
-      "id": 4
-    }
-  ]
+  "tasks": []
 }

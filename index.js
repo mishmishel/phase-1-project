@@ -23,7 +23,7 @@ function addTask() {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({task})
+            body: JSON.stringify({task, checked: false})
         }) .then(response => {
             if (response.ok) {
                 inputBox.value = '';
@@ -43,6 +43,10 @@ fetch('http://localhost:3000/tasks')
     json.forEach(task => {
         let li = document.createElement("li");
         li.innerHTML = task.task;
+
+        if (task.checked) {
+            li.classList.add("checked");
+        }
 
         listContainer.appendChild(li);
 
@@ -67,20 +71,49 @@ inputBox.addEventListener("keyup", function(event) {
 listContainer.addEventListener("click", function(event) {
     if (event.target.tagName === "LI") {
         event.target.classList.toggle("checked");
+
+        let listItem = event.target;
+        let taskText = listItem.textContent.trim(); // Returns whatever written plus X
+        let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field
+
+        // console.log(taskContent)
+
+        fetch('http://localhost:3000/tasks')
+        .then(response => response.json())
+        .then(data => { const task = data.find(item => item.task === taskContent);
+        if (!task) {
+            throw new Error ('Task not found.'); 
+        } task.checked = listItem.classList.contains("checked");
+    
+        return fetch(`http://localhost:3000/tasks/${task.id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(task)
+        });
+    }) .then(response => {
+        if(response.ok) {
+
+        } else {
+            throw new Error('Failed to mark task as checked');
+        }
+    }) .catch(error => {
+        alert(error.message);
+    });
     } 
     else if (event.target.tagName === "SPAN"){
         // event.target.parentElement.remove();
-
         let listItem = event.target.parentNode;
-        console.log(listItem)
-        let taskText = listItem.textContent.trim();
+        let taskText = listItem.textContent.trim(); // Returns whatever written plus X
+        let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field
 
         fetch('http://localhost:3000/tasks')
         .then(response => response.json())
         .then(data => {
-            const task = data.find(item => item.task === taskText);
+            const task = data.find(item => item.task === taskContent);
 
-            if(!task) {
+            if (!task) {
                 throw new Error ('Task not found.');
             }
 
@@ -89,14 +122,18 @@ listContainer.addEventListener("click", function(event) {
             });
         })
         .then(response => {
-            if (response.ok) {
-                listItem.remove();
-        } else {
-            throw new Error('Failed to delete the task');
-        }
-        })  .catch(error => {
-         alert(error.message);
+            if(response.ok) {
+                event.target.parentElement.remove();
+            } else {
+                throw new Error ('Failed to delete the task')
+            }
+        })
+        .catch(error => {
+            alert(error.message);
         });
+    
+
+    
     }
 });
 
