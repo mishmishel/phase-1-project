@@ -80,7 +80,7 @@ listContainer.addEventListener("click", function(event) {
 
         fetch('http://localhost:3000/tasks')
         .then(response => response.json())
-        .then(data => { const task = data.find(item => item.task === taskContent);
+        .then(json => { const task = json.find(item => item.task === taskContent);
         if (!task) {
             throw new Error ('Task not found.'); 
         } task.checked = listItem.classList.contains("checked");
@@ -110,8 +110,8 @@ listContainer.addEventListener("click", function(event) {
 
         fetch('http://localhost:3000/tasks')
         .then(response => response.json())
-        .then(data => {
-            const task = data.find(item => item.task === taskContent);
+        .then(json => {
+            const task = json.find(item => item.task === taskContent);
 
             if (!task) {
                 throw new Error ('Task not found.');
@@ -131,9 +131,15 @@ listContainer.addEventListener("click", function(event) {
         .catch(error => {
             alert(error.message);
         });
-    
-
-    
     }
 });
 
+var icon = document.getElementById("icon");
+icon.addEventListener("click", function() {
+    document.body.classList.toggle("dark-theme");
+    if(document.body.classList.contains("dark-theme")) {
+        icon.src = "images/sun.png"
+    } else {
+        icon.src = "images/moon.jpg"
+    }
+})

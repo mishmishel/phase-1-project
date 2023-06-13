@@ -1,3 +1,29 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "task": "Eat breakfast",
+      "checked": true,
+      "id": 1
+    },
+    {
+      "task": "Have coffee",
+      "checked": true,
+      "id": 2
+    },
+    {
+      "task": "Reread notes on array iterators",
+      "checked": false,
+      "id": 3
+    },
+    {
+      "task": "Create an additional event listener",
+      "checked": false,
+      "id": 4
+    },
+    {
+      "task": "Create dark/light mode on website",
+      "checked": false,
+      "id": 5
+    }
+  ]
 }

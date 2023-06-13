@@ -8,21 +8,40 @@
 .container{
     width: 100%;
     min-height: 100vh;
-    background: #d8a9ff;
+    background: var(--primary-color); /* Variable of primary color for later switching between light and dark mode */
     padding: 10px;
 }
 
 .white-box{
     width: 100%;
     max-width: 540px;
-    background: white;
+    background: var(--tertiary-color);
     margin: 100px auto 20px;
     padding: 40px 30px 70px;
-    border-radius: 10px; /* Rounded Corners */
+    border-radius: 15px; /* Rounded Corners */
 }
 
 .white-box h2 {
     margin-bottom: 20px;
+    display: flex;
+}
+
+#icon {
+    width: 30px;
+    margin-left: 285px;
+    cursor: pointer;
+}
+
+:root {
+    --primary-color: #d8a9ff; 
+    --secondary-color: #ffd684 ;
+    --tertiary-color: white; 
+}
+
+.dark-theme {
+    --primary-color:#17106d; 
+    --secondary-color:#6a4dfd; 
+    --tertiary-color:rgb(81, 78, 163); 
 }
 
 .row {
@@ -47,7 +66,7 @@ button {
     border: none;
     outline: none;
     padding: 15px 50px;
-    background: #ffd684;
+    background: var(--secondary-color); /* Variable of secondary color for later switching between light and dark mode */
     font-size: 15px;
     cursor: pointer;
     border-radius: 40px;
