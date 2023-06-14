@@ -15,7 +15,7 @@
 .white-box{
     width: 100%;
     max-width: 540px;
-    background: var(--tertiary-color);
+    background: var(--secondary-color);
     margin: 100px auto 20px;
     padding: 40px 30px 70px;
     border-radius: 15px; /* Rounded Corners */
@@ -34,17 +34,15 @@
 
 :root {
     --primary-color: #d8a9ff; 
-    --secondary-color: #ffd684 ;
-    --tertiary-color: white; 
+    --secondary-color: white; 
 }
 
 .dark-theme {
     --primary-color:#17106d; 
-    --secondary-color:#6a4dfd; 
-    --tertiary-color:rgb(81, 78, 163); 
+    --secondary-color:rgb(81, 78, 163); 
 }
 
-.row {
+.enter-and-add {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -66,7 +64,7 @@ button {
     border: none;
     outline: none;
     padding: 15px 50px;
-    background: var(--secondary-color); /* Variable of secondary color for later switching between light and dark mode */
+    background: #ffd684; /* Variable of secondary color for later switching between light and dark mode */
     font-size: 15px;
     cursor: pointer;
     border-radius: 40px;
@@ -81,7 +79,7 @@ ul > li {
     position: relative; /*Because in ul > li::before we have position: absolute; here, the position is relative*/
 }
 
-ul > li::before {
+ul > li::before { /*Before being checked off */
     content: '';
     position: absolute;
     height: 28px;
@@ -95,7 +93,7 @@ ul > li::before {
 
 }
 
-ul > li.checked{
+ul > li.checked{ /*After being checked off*/
     color: #adadad;
     text-decoration: line-through;
 }
@@ -104,7 +102,7 @@ ul > li.checked::before {
     background-image: url(images/checked.jpg);
 }
 
-ul > li > span {
+ul > li > span { 
     position: absolute;
     right: 0;
     top: 10px;
@@ -116,6 +114,6 @@ ul > li > span {
     border-radius: 50%;
 }
 
-ul > li > span:hover {
+ul > li > span:hover { /* Hovering over the X - creating a grey circle in the background */
     background: #f3f3f3;
 }

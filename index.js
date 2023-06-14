@@ -105,8 +105,8 @@ listContainer.addEventListener("click", function(event) {
     else if (event.target.tagName === "SPAN"){
         // event.target.parentElement.remove();
         let listItem = event.target.parentNode;
-        let taskText = listItem.textContent.trim(); // Returns whatever written plus X
-        let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field
+        let taskText = listItem.textContent.trim(); // Returns whatever written plus X (.trim() removes white space)
+        let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field (aka last character)
 
         fetch('http://localhost:3000/tasks')
         .then(response => response.json())
@@ -134,9 +134,10 @@ listContainer.addEventListener("click", function(event) {
     }
 });
 
+/* Toggling between dark and light mode */
 var icon = document.getElementById("icon");
 icon.addEventListener("click", function() {
-    document.body.classList.toggle("dark-theme");
+    document.body.classList.toggle("dark-theme"); /* Toggle to add class name */
     if(document.body.classList.contains("dark-theme")) {
         icon.src = "images/sun.png"
     } else {
