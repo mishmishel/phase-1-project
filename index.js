@@ -1,5 +1,6 @@
 const inputBox = document.getElementById("input-box");
-const listContainer = document.getElementById("list-container");
+const listContainer = document.getElementById("list-container"); // contains the lists 
+const addButton = document.getElementById("add-button");
 
 function addTask() {
     /* If the input box is empty and user clicks add this will send alert */
@@ -26,7 +27,7 @@ function addTask() {
             body: JSON.stringify({task, checked: false})
         }) .then(response => {
             if (response.ok) {
-                inputBox.value = '';
+                inputBox.value = ''; // to ensure that the input box is empty after submitting task
             } else {
                 throw new Error ('Failed to save the task.');
             }
@@ -35,6 +36,8 @@ function addTask() {
         });
     }
 }
+
+addButton.addEventListener("click", addTask); // event listener on button to add task
 
 /* Fetching tasks from server using GET method */ 
 fetch('http://localhost:3000/tasks')
@@ -73,6 +76,7 @@ listContainer.addEventListener("click", function(event) {
         event.target.classList.toggle("checked");
 
         let listItem = event.target;
+        console.log(listItem)
         let taskText = listItem.textContent.trim(); // Returns whatever written plus X
         let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field
 
