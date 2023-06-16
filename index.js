@@ -22,7 +22,8 @@ function addTask() {
         fetch('http://localhost:3000/tasks', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Accept': 'application/json'
             },
             body: JSON.stringify({task, checked: false})
         }) .then(response => {
@@ -76,7 +77,9 @@ listContainer.addEventListener("click", function(event) {
         event.target.classList.toggle("checked");
 
         let listItem = event.target;
-        console.log(listItem)
+
+        // console.log(listItem)
+
         let taskText = listItem.textContent.trim(); // Returns whatever written plus X
         let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field
 

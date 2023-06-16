@@ -1,9 +1,3 @@
 {
-  "tasks": [
-    {
-      "task": "meow",
-      "checked": true,
-      "id": 1
-    }
-  ]
+  "tasks": []
 }
