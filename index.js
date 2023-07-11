@@ -16,20 +16,8 @@ function addTask() {
     if(inputValue === ''){
         return;
     } else { /* Else if user enters something in input box, the task will get added */
+       
         let task = inputBox.value;
-        let li = document.createElement("li");
-        li.innerHTML = task;
-
-        let taskId = task.id;
-
-        li.setAttribute("data-task-id", taskId) // setting task ID as an attribute 
-
-        listContainer.appendChild(li);
-
-        /* Add X next to added task */
-        let span = document.createElement("span");
-        span.innerHTML = "\u00d7"; 
-        li.appendChild(span);
 
         /*Save task to the db.json server by sending POST request*/
         fetch('http://localhost:3000/tasks', {
@@ -41,11 +29,30 @@ function addTask() {
             body: JSON.stringify({task, checked: false})
         }) .then(response => {
             if (response.ok) {
-                inputBox.value = ''; // to ensure that the input box is empty after submitting task
+                return response.json()
             } else {
                 throw new Error ('Failed to save the task.');
             }
-        }) .catch(error => {
+        }) .then(data => {
+            let li = document.createElement("li");
+            li.innerHTML = task;
+
+            li.setAttribute("data-task-id", data.id); // setting task ID as an attribute
+
+            listContainer.appendChild(li)
+
+            // add X to added task
+
+            let span = document.createElement("span");
+            span.innerHTML = "\u00d7"; 
+
+            li.appendChild(span);
+
+            inputBox.value = '';
+
+        })
+        
+        .catch(error => {
             alert(error.message);
         });
     }
