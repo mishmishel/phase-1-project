@@ -141,29 +141,16 @@ listContainer.addEventListener("click", function(event) {
     else if (event.target.tagName === "SPAN"){
         
         let listItem = event.target.parentNode;
-        let taskText = listItem.textContent.trim(); // Returns whatever written plus X (.trim() removes white space)
-        let taskContent = taskText.slice(0, -1).trim(); // Removes X from whatever written in input field (aka last character)
-
-        console.log(listItem)
+        let taskId = listItem.getAttribute("data-task-id");
  
-        fetch('http://localhost:3000/tasks')
-        .then(response => response.json())
-        .then(json => {
-            const task = json.find(item => item.task === taskContent);
-
-            if (!task) {
-                throw new Error ('Task not found.');
-            }
-
-            return fetch(`http://localhost:3000/tasks/${task.id}`, {
-                method: 'DELETE'
-            });
+        fetch(`http://localhost:3000/tasks/${taskId}`, {
+            method: 'DELETE'
         })
         .then(response => {
             if(response.ok) {
                 event.target.parentElement.remove();
             } else {
-                throw new Error ('Failed to delete the task')
+                throw new Error('Failed to delete the task');
             }
         })
         .catch(error => {
