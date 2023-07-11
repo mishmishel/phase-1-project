@@ -10,7 +10,6 @@ inputBox.addEventListener("input", function() {
 })
 
 function addTask() {
-    /* If the input box is empty and user clicks add this will send alert */
 
     const inputValue = inputBox.value.trim();
 
@@ -20,7 +19,10 @@ function addTask() {
         let task = inputBox.value;
         let li = document.createElement("li");
         li.innerHTML = task;
-        li.setAttribute("data-task-id", task.id) // setting task ID 
+
+        let taskId = task.id;
+
+        li.setAttribute("data-task-id", taskId) // setting task ID as an attribute 
 
         listContainer.appendChild(li);
 
@@ -93,15 +95,17 @@ listContainer.addEventListener("click", function(event) {
     if (event.target.tagName === "LI") {
         event.target.classList.toggle("checked");
 
-        li.setAttribute("data-task-id", task.id)
+        // li.setAttribute("data-task-id", task.id)
 
         let listItem = event.target;
 
         // console.log(listItem)
 
-        let taskId = listItem.dataset.taskId; // retrieving task ID
+        let taskId = listItem.getAttribute("data-task-id"); // retrieving task ID 
 
         // console.log(taskContent)
+
+        console.log(taskId);
 
         fetch(`http://localhost:3000/tasks/${taskId}`)
         .then(response => response.json())
